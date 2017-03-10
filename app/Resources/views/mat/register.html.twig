@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="text-align:center; margin-top:40px;">
+    <h1>Rejestrujesz sie</h1>
+        <form method="post" action="{{ path('confirm') }}">
+            <p>Podaj imię </p>
+            <input type="text" name="name" />
+            <input type="submit" value="wyślij"/>
+
+        </form>
+    </div>
+{% endblock %}
