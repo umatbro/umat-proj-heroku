@@ -22,7 +22,10 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function registerAction(){
-        return $this->render('mat/register.html.twig');
+      $connection = $this->get('database_connection');
+      $users= $connection->fetchAll('SELECT * FROM user');
+      $user = $users[0]['name'];
+        return $this->render('mat/register.html.twig', ['user' => $user]);
     }
 
     /**
