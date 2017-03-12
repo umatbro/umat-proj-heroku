@@ -10,6 +10,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
+      <a href="{{ path('homepage') }}"><div style="position: fixed; left: 45px; top: 24px;">
+        <button type="button" class="btn btn-primary">HOME</button>
+      </div></a>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
