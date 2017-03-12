@@ -27,3 +27,7 @@ doctrine:
         dbname: umat
         user: umat
         password: welcometothericefield
+
+framework:
+  session:
+    save_path: "%kernel.root_dir%/../var/sessions/%kernel.environment%"
