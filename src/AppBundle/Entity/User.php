@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -92,6 +93,50 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    //funkcje potrzebne do UserInterface
+    public function getUsername(){
+        return $this->name;
+    }
+
+    public function getSalt(){
+        return null;
+    }
+
+    public function getRoles(){
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
+    //skopiowane z http://symfony.com/doc/current/security/entity_provider.html#security-crete-user-entity
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->name,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 }
 
