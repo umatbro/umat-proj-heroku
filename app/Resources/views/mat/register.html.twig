@@ -3,12 +3,12 @@
 {% block body %}
     <div style="text-align:center; margin-top:40px;">
     <h1>Rejestrujesz sie</h1>
-    <p>{{user}}</p>
         <form method="post" action="{{ path('confirm') }}">
             <p>Podaj imię </p>
-            <input type="text" name="name" />
+            <input type="text" name="name" /><br/>
+            <p>Podaj hasło</p>
+            <input type="password" name="password"/><br/>
             <input type="submit" value="wyślij"/>
-
         </form>
     </div>
 {% endblock %}

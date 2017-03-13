@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=32, unique=true)
+     * @ORM\Column(name="name", type="string", length=32, unique=true, nullable=false)
      */
     private $name;
 
