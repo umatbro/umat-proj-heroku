@@ -4,10 +4,8 @@
     <div style="text-align:center; margin-top:40px;">
     <h1>Rejestracja</h1>
         <form method="post" action="{{ path('confirm') }}">
-            <p>Podaj imię </p>
-            <input type="text" name="name" /><br/>
-            <p>Podaj hasło</p>
-            <input type="password" name="password"/><br/>
+            <input type="text" name="name" placeholder="Imię"/><br/>
+            <input type="password" name="password" placeholder="Hasło"/><br/>
             <input type="submit" value="wyślij"/>
         </form>
     </div>
