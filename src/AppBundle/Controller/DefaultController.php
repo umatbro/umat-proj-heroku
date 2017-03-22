@@ -17,16 +17,16 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig');
     }
 
-    /**
-     * @Route("/register", name="register")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function registerAction(){
-//      $connection = $this->get('database_connection');
-//      $users= $connection->fetchAll('SELECT * FROM user');
-//      $user = $users[0]['name'];
-        return $this->render('mat/register.html.twig');
-    }
+   /**
+    * @Route("/register", name="register")
+    * @return \Symfony\Component\HttpFoundation\Response
+    */
+   public function registerAction(){
+     $connection = $this->get('database_connection');
+     $users= $connection->fetchAll('SELECT * FROM user');
+     $user = $users[0]['name'];
+       return $this->render('mat/register.html.twig');
+   }
 
     /**
      * @Route("/confirmation", name="confirm")
