@@ -55,10 +55,12 @@ class DefaultController extends Controller
         $users = $conn->fetchAll('SELECT * FROM user');
         foreach($users as $user){
                 $names[] = $user['name'];
+                $passwords[] = $user['password'];
+
         }
         $xd = $names[0];
         //$passwords = $users['password'];
-        return $this->render('mat/display.html.twig', ['users' => $names]);
+        return $this->render('mat/display.html.twig', ['users' => $names, 'passwords' => $passwords]);
     }
 
 }
