@@ -19,3 +19,12 @@ monolog:
             level: debug
         console:
             type:  console
+
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: db4free.net
+        port: '%database_port%'
+        dbname: umat
+        user: umat
+        password: welcometothericefield
