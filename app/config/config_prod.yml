@@ -10,24 +10,12 @@ imports:
 monolog:
     handlers:
         main:
-            type: fingers_crossed
+            type:         fingers_crossed
             action_level: error
-            handler: nested
+            handler:      nested
         nested:
-            type: stream
-            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
         console:
-            type: console
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: db4free.net
-        port: '%database_port%'
-        dbname: umat
-        user: umat
-        password: welcometothericefield
-
-framework:
-  session:
-    save_path: "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+            type:  console
