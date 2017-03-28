@@ -9,7 +9,9 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>umat</user-name>
+      <introspection-schemas>*:umat</introspection-schemas>
       <resolve-scope>umat:</resolve-scope>
+      <unqualified-resolve-schemas>umat:</unqualified-resolve-schemas>
     </data-source>
   </component>
 </project>
