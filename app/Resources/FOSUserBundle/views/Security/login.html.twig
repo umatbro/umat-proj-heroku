@@ -3,7 +3,7 @@
 
 {% block fos_user_content %}
     <div class="text-center" style="max-width:500px;margin:0 auto;">
-        {% if not app.user %}
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {{ include('@FOSUser/Security/login_content.html.twig') }}
         {% endif %}
     </div>
