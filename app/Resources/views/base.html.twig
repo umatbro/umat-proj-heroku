@@ -37,7 +37,7 @@
                 <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
                 {% else %}
                 {# if user is logged in - display his name and let him log out #}
-                    <li><a><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                    <li><a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                 {% endif %}
                 <li class="dropdown">
