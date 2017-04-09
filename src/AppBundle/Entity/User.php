@@ -30,4 +30,38 @@ class User extends BaseUser
     // your own logic
         $this->userOrders = new ArrayCollection();
     }
+
+    /**
+     * Add userOrder
+     *
+     * @param \AppBundle\Entity\UserOrder $userOrder
+     *
+     * @return User
+     */
+    public function addUserOrder(\AppBundle\Entity\UserOrder $userOrder)
+    {
+        $this->userOrders[] = $userOrder;
+
+        return $this;
+    }
+
+    /**
+     * Remove userOrder
+     *
+     * @param \AppBundle\Entity\UserOrder $userOrder
+     */
+    public function removeUserOrder(\AppBundle\Entity\UserOrder $userOrder)
+    {
+        $this->userOrders->removeElement($userOrder);
+    }
+
+    /**
+     * Get userOrders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserOrders()
+    {
+        return $this->userOrders;
+    }
 }
