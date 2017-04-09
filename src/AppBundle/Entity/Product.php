@@ -43,6 +43,12 @@ class Product
     private $createdAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", referenceColumnName="id")
+     */
+    private $category;
+
+    /**
      * Get id
      *
      * @return integer
