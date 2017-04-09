@@ -28,6 +28,17 @@ class OrderItem
      */
     private $numberOfProducts;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems")
+     * @ORM\JoinColumnName(name="userorder_id", referencedColumnName="id")
+     */
+    private $userOrder;
 
     /**
      * Get id

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * UserOrder
@@ -35,7 +36,23 @@ class UserOrder
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="userOrders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
+     */
+    private $orderItems;
+
+
+    public function __construct()
+    {
+        $this-> orderItems = new ArrayCollection();
+    }
 
 
     /**
