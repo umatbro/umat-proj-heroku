@@ -23,8 +23,8 @@ monolog:
 doctrine:
     dbal:
         driver: pdo_mysql
-        host: db4free.net
+        host: sql8.freesqldatabase.com
         port: '%database_port%'
-        dbname: umat
-        user: umat
-        password: welcometothericefield
+        dbname: sql8168320
+        user: sql8168320
+        password: HMGPTfWHk7
