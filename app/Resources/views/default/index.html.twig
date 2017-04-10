@@ -3,5 +3,9 @@
 {% block body %}
     <div class="text-center">
         <h1>Witaj na stronie{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}, {{ app.user.username }}{% endif %}  (:</h1>
+    {% for productName in productNames %}
+		{{ productName }}</br>
+    {% endfor %}
+    
     </div>
 {% endblock %}
