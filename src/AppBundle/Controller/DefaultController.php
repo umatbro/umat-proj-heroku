@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
 		
 		$em = $this -> getDoctrine() -> getManager();
-		$products = $em -> find('AppBundle:Product');
+        $products = $em->getRepository('AppBundle:Product')->findAll();
 		
 		foreach($products as $product){
 			$productNames[] = $product-> getName();
