@@ -2,7 +2,7 @@
 
 {% block content %}
     {% block authenticated_test %}
-    <div>
+    <div class="w3-panel w3-theme-l3 w3-round-xlarge">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
             <a href="{{ path('fos_user_security_logout') }}">
@@ -24,7 +24,7 @@
         {% endfor %}
     {% endif %}
     {% endblock authenticated_test %}
-    <div>
+    <div class="w3-card w3-padding w3-white w3-round">
         {% block fos_user_content %}
         {% endblock fos_user_content %}
     </div>

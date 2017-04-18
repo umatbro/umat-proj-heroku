@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="text-center">
-        <h1>Witaj na stronie{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}, {{ app.user.username }}{% endif %}  (:</h1>
-    <ul>
+    <div class="w3-card-2 w3-round w3-white"></div>
+
     {% for productName in productNames %}
-		<li><a>{{ productName }}</a></li>
+        <div class="w3-card-2 w3-round w3-white w3-margin-bottom w3-padding">
+        <h3>
+            {{ productName }}
+            <span class="w3-right">Cena</span><br/>
+            <small>Opis</small>
+            <a><small class="w3-card-2 w3-right w3-theme-l4 w3-button w3-padding-small"><i class="fa fa-shopping-cart"></i> Dodaj</small></a>
+        </h3>
+        </div>
     {% endfor %}
-    </ul>
-    </div>
+
 {% endblock %}

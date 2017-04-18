@@ -23,45 +23,6 @@
 </head>
 <body class="w3-theme-l5">
 
-{#<nav class="navbar navbar-default navbar-fixed-top">#}
-    {#<div class="container">#}
-        {#<div class="navbar-header">#}
-            {#<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">#}
-                {#<span class="sr-only">Toggle navigation</span>#}
-                {#<span class="icon-bar"></span>#}
-                {#<span class="icon-bar"></span>#}
-                {#<span class="icon-bar"></span>#}
-            {#</button>#}
-            {#<a class="navbar-brand" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span> <b>home</b></a>#}
-        {#</div>#}
-        {#<div id="navbar" class="navbar-collapse collapse">#}
-            {#<ul class="nav navbar-nav navbar-left">#}
-                {#<li><a href="#about" >About</a></li>#}
-                {#<li><a href="#contact">Contact</a></li>#}
-            {#</ul>#}
-            {#<ul class="nav navbar-nav navbar-right">#}
-                {# user not logged in - let login or register #}
-                {#{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
-                {#<li><a href="{{ path('fos_user_security_login') }}" >{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>#}
-                {#<li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>#}
-                {#{% else %}#}
-                {# if user is logged in - display his name and let him log out #}
-                    {#<li><a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>#}
-                {#<li><a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>#}
-                {#{% endif %}#}
-                {#<li class="dropdown">#}
-                    {#<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-option-horizontal"></span> </a>#}
-                    {#<ul class="dropdown-menu">#}
-                        {#<li class="dropdown-header">Contents</li>#}
-                        {#<li role="separator" class="divider"></li>#}
-                        {#<li><a href="#">example</a></li>#}
-                    {#</ul>#}
-                {#</li>#}
-            {#</ul>#}
-        {#</div><!--/.nav-collapse -->#}
-    {#</div>#}
-{#</nav>#}
-
 {# Navbar #}
 <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
@@ -107,10 +68,49 @@
         }
     }
 </script>
-<div style="height:70px;"></div>
-<div class="container">
-{% block content %}{% endblock %}
-{% block body %}{% endblock %}
+
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+    {# The grid #}
+    <div class="w3-row">
+        {# left column #}
+        <div class="w3-col m3 w3-hide-medium w3-hide-small">
+            {# Lorem ipsum left col #}
+            <div class="w3-card-2 w3-round w3-white">
+                <h4 class="w3-center w3-theme-d1 w3-round w3-padding-small">Lorem ipsum</h4>
+                <div class="w3-container">
+                    <p class="w3-center w3-padding-large"><img src="{{ asset('img/business.jpg') }}" class="w3-circle" style="height:106px;width:106px"/></p>
+                    <p style="text-align:justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in enim finibus, sodales risus sit amet, tempor lectus. Aliquam ut odio nisl. Donec sed ultricies risus. Mauris id nulla erat. Maecenas luctus porttitor augue et luctus. Donec at odio pulvinar, placerat mi quis, finibus lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a arcu feugiat, pretium nulla nec, tincidunt mauris. Nullam tempor sit amet velit et vestibulum. Mauris iaculis molestie nisi, a malesuada ante posuere nec. </p>
+                </div>
+            </div>
+            {# end of left column #}
+        </div>
+
+        {# Middle Column #}
+        <div class="w3-col m7">
+            <div class="w3-row-padding">
+                <div clas="w3-col m12">
+                    <div class="w3-container w3-padding">
+                        {% block content %}{% endblock %}
+
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            {# end of middle column #}
+        </div>
+
+        {# right column #}
+        <div class="w3-col m2">
+            <div class="w3-card-2 w3-round w3-white w3-center">
+                <h4 class="w3-theme w3-round w3-padding-small"><i class="fa fa-shopping-cart"></i> Koszyk</h4>
+                <div class="w3-center w3-padding">
+                    Zawartość koszyka
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 {% block javascripts %}{% endblock %}
