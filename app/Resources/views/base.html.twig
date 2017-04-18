@@ -32,7 +32,7 @@
         <a href="{{ path('homepage') }}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>home</a>
         {# admin panel #}
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('homepage') }}" class="w3-bar-item w3-button w3-padding-large "><i class="fa fa-cog fa-spin w3-margin-right"></i>admin</a>
+        <a href="{{ path('admin') }}" class="w3-bar-item w3-button w3-padding-large "><i class="fa fa-cog fa-spin w3-margin-right"></i>admin</a>
         {% endif %}
         <div class="w3-right">
             {# user not logged in - allow login and register #}
@@ -81,6 +81,7 @@
         {# left column #}
         <div class="w3-col m3 w3-hide-medium w3-hide-small">
             {# Lorem ipsum left col #}
+            {% block leftColumn %}
             <div class="w3-card-2 w3-round w3-white">
                 <h4 class="w3-center w3-theme-d1 w3-round w3-padding-small">Lorem ipsum</h4>
                 <div class="w3-container">
@@ -88,17 +89,19 @@
                     <p style="text-align:justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in enim finibus, sodales risus sit amet, tempor lectus. Aliquam ut odio nisl. Donec sed ultricies risus. Mauris id nulla erat. Maecenas luctus porttitor augue et luctus. Donec at odio pulvinar, placerat mi quis, finibus lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a arcu feugiat, pretium nulla nec, tincidunt mauris. Nullam tempor sit amet velit et vestibulum. Mauris iaculis molestie nisi, a malesuada ante posuere nec. </p>
                 </div>
             </div>
+            {% endblock %}
             {# end of left column #}
         </div>
 
         {# Middle Column #}
-        <div class="w3-col m7">
+        <div class="w3-col m7 w3-animate-bottom">
             <div class="w3-row-padding">
                 <div clas="w3-col m12">
                     <div class="w3-container w3-padding">
                         {% block content %}{% endblock %}
-
+                        <div class="w3-card-2 w3-round w3-white w3-padding">
                         {% block body %}{% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>

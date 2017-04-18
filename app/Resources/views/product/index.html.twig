@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle:Admin:admin.html.twig' %}
 {% block stylesheets %}
     <style>table, th, td {
             border: 1px solid black;
             padding: 10px;
-        }</style>
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -43,7 +44,7 @@
         </tbody>
     </table>
 
-    <ul>
+    <ul class="w3-ul w3-button w3-theme-l4 w3-margin-top">
         <li>
             <a href="{{ path('admin_product_new') }}">Create a new product</a>
         </li>

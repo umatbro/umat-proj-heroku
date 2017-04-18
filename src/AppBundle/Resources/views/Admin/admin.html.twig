@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Admin panel{% endblock %}
+{% block leftColumn %}
+    <div class="w3-card-2 w3-theme-d4">
+        <ul class="w3-ul w3-border">
+            <a href="{{ path('admin') }}" ><li class="w3-theme-d5 w3-hover-theme">Panel</li></a>
+            <a href="{{ path('admin_product_index') }}"><li class="w3-hover-theme">Produkty</li></a>
+            <a href="{{ path('admin_category_index') }}"><li class="w3-hover-theme">Kategorie</li></a>
+        </ul>
+    </div>
+{% endblock %}
+{% block body %}
+    <h1>Welcome to the Admin page</h1>
+    <ul class="w3-ul w3-border w3-cell">
+        <a href="{{ path('admin_product_index') }}"><li class="w3-hover-theme">Produkty</li></a>
+        <a href="{{ path('admin_category_index') }}"><li class="w3-hover-theme">Kategorie</li></a>
+    </ul>
+{% endblock %}
