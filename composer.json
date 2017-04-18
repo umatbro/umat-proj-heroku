@@ -1,5 +1,5 @@
 {
-    "name": "umat/userbundle-test",
+    "name": "umat/umat-proj",
     "license": "proprietary",
     "type": "project",
     "autoload": {
