@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{{ asset('css/w3.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/w3-theme-blue-grey.css') }}">
     <link rel="stylesheet" href="{{ asset('css/css?family=Open+Sans.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <style>
         html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+        a:hover{
+            text-decoration: none;}
     </style>
 
     {% block stylesheets %}{% endblock %}
@@ -20,7 +21,7 @@
     {% endblock %}
     <link rel="icon" {#type="image/x-icon"#} href="{{ asset('favicon.ico') }}" />
 </head>
-<body>
+<body class="w3-theme-l5">
 
 {#<nav class="navbar navbar-default navbar-fixed-top">#}
     {#<div class="container">#}
@@ -61,9 +62,23 @@
     {#</div>#}
 {#</nav>#}
 
-
-
-
+{# Navbar #}
+<div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+        <a href="{{ path('homepage') }}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>home</a>
+        <div class="w3-right">
+            {# user not logged in - allow login and register #}
+            {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('fos_user_security_login') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+            {# user is logged in #}
+            {% else %}
+                <a href="{{ path('fos_user_profile_show') }}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-user-o"></i> {{ app.user.username }}</a>
+                <a href="{{ path('fos_user_security_logout') }}" class="w3-bar-item w3-button w3-padding-large"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 <div style="height:70px;"></div>
 <div class="container">

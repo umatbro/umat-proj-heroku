@@ -5,7 +5,7 @@
         <h1>Witaj na stronie{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}, {{ app.user.username }}{% endif %}  (:</h1>
     <ul>
     {% for productName in productNames %}
-		<li>{{ productName }}</li>
+		<li><a>{{ productName }}</a></li>
     {% endfor %}
     </ul>
     </div>
