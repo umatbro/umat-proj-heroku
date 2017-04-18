@@ -65,21 +65,48 @@
 {# Navbar #}
 <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
         <a href="{{ path('homepage') }}" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>home</a>
         <div class="w3-right">
             {# user not logged in - allow login and register #}
             {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a href="{{ path('fos_user_security_login') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                <a href="{{ path('fos_user_registration_register') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_security_login') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-small w3-hover-white">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-small w3-hover-white">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
             {# user is logged in #}
             {% else %}
-                <a href="{{ path('fos_user_profile_show') }}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-user-o"></i> {{ app.user.username }}</a>
-                <a href="{{ path('fos_user_security_logout') }}" class="w3-bar-item w3-button w3-padding-large"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_profile_show') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-small w3-hover-white"><i class="fa fa-user-o"></i> {{ app.user.username }}</a>
+                <a href="{{ path('fos_user_security_logout') }}" class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-small w3-hover-white"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
             {% endif %}
         </div>
     </div>
 </div>
 
+{# navbar on small screens #}
+<div id="navMobile" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">#</a>
+    {# user not logged in - allow login and register #}
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a href="{{ path('fos_user_security_login') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+        <a href="{{ path('fos_user_registration_register') }}" class="w3-bar-item w3-button w3-padding-large">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+        {# user is logged in #}
+    {% else %}
+        <a href="{{ path('fos_user_profile_show') }}" class="w3-bar-item w3-button w3-padding-large"><i class="fa fa-user-o"></i> {{ app.user.username }}</a>
+        <a href="{{ path('fos_user_security_logout') }}" class="w3-bar-item w3-button w3-padding-large"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+    {% endif %}
+</div>
+
+
+<script>
+    // Used to toggle the menu on smaller screens when clicking on the menu button
+    function openNav() {
+        var x = document.getElementById("navMobile");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
 <div style="height:70px;"></div>
 <div class="container">
 {% block content %}{% endblock %}
