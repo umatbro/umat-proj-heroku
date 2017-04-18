@@ -28,7 +28,7 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="decimal"), scale=2)
+     * @ORM\Column(type="decimal", scale=2, precision=10)
      */
     private $defaultPrice;
 
