@@ -1,6 +1,14 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}Admin panel{% endblock %}
+{% block stylesheets %}
+    <style>td {
+            border-right: 1px solid lightgray;
+            padding: 10px;
+        }
+        td:first-child{border-left: 1px solid lightgray}
+    </style>
+{% endblock %}
 {% block leftColumn %}
     <div class="w3-card-2 w3-theme-d4">
         <ul class="w3-ul w3-border">

@@ -3,12 +3,12 @@
 {% block body %}
     <h1>Produkty</h1>
     {% for product in products %}
-        <div class="w3-panel w3-round-small w3-margin-bottom w3-padding w3-theme-l4 w3-hover-text-theme">
+        <div class="w3-panel w3-round-small w3-margin-bottom w3-padding w3-theme-l4">
         <h3>
             {{ product.name }}
             <span class="w3-right">{{ product.defaultPrice }} zł</span><br/>
             <small>{{ product.description }}</small>
-            <a><small class="w3-card-2 w3-right w3-theme-l3 w3-button w3-padding-small"><i class="fa fa-shopping-cart"></i> Dodaj</small></a>
+            <a><small class="w3-card-2 w3-right w3-theme-l3 w3-button w3-round w3-padding-small w3-hover-theme"><i class="fa fa-shopping-cart"></i> Dodaj</small></a>
         </h3>
         </div>
     {% endfor %}
