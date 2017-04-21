@@ -1,1 +1,10 @@
-Zawartość koszyka
+<div class="w3-center w3-padding">
+    Zawartość koszyka<br/>
+    {% set filter = app.session.get('filter') %}
+    {% if filter['quantity'] is defined %}
+    {{ filter['quantity'] }}<br/>
+    <a href="{{ path('clearCard') }}">Opróżnij koszyk</a>
+    {% else %}
+    Koszyk jest pusty
+    {% endif %}
+</div>
