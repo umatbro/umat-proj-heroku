@@ -32,43 +32,21 @@ class DefaultController extends Controller
      * @Route("/add-order-item/{productID}", name="addOrderItem")
      */
     public function addOrderItemAction($productID){
-//        $session = $this->get('session');
-//        $session->set('quantity');
-
-        $em = $this -> getDoctrine() -> getManager();
-        $products = $em->getRepository('AppBundle:Product')->findAll();
-
-        foreach($products as $product){
-            $productNames[] = $product-> getName();
-        }
-
-
-        if(!isset($_SESSION['quantity'])) $_SESSION['quantity'] = 1;
+        if(!isset($_SESSION['quantity'])) $_SESSION['quantity'] = 0;
         $_SESSION['quantity']++;
         $session = $this->get('session');
-        $session -> set('filter', array(
-            'quantity' => $_SESSION['quantity']
-        ));
-        return $this->render('default/index.html.twig', ['products' => $products]);
+        $session -> set('quantity', $_SESSION['quantity']);
+
+        return $this->redirect($this->generateUrl('homepage'));
     }
 
     /**
-     * @Route("/clear-card",name="clearCard")
+     * @Route("/clear-card",name="clearCart")
      */
     public function clearCard(){
-        $em = $this -> getDoctrine() -> getManager();
-        $products = $em->getRepository('AppBundle:Product')->findAll();
-
-        foreach($products as $product) {
-            $productNames[] = $product->getName();
-        }
-
-        if(isset($_SESSION['quantity'])) ($_SESSION['quantity'] = 0);
+        if(isset($_SESSION['quantity'])) unset($_SESSION['quantity']);
         $session = $this->get('session');
-        $session -> set('filter', array(
-            'quantity' => $_SESSION['quantity']
-        ));
-
-        return $this->render('default/index.html.twig', ['products'=>$products]);
+        $session->remove('quantity');
+        return $this->redirect($this->generateUrl('homepage'));
     }
 }

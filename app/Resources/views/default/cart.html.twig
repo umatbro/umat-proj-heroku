@@ -1,9 +1,8 @@
 <div class="w3-center w3-padding">
-    Zawartość koszyka<br/>
-    {% set filter = app.session.get('filter') %}
-    {% if filter['quantity'] is defined %}
-    {{ filter['quantity'] }}<br/>
-    <a href="{{ path('clearCard') }}">Opróżnij koszyk</a>
+    {% set quantity = app.session.get('quantity') %}
+    {% if quantity is not null %}
+    {{ quantity }}<br/>
+    <a href="{{ path('clearCart') }}" class="w3-button w3-theme-l4 w3-hover-theme w3-round w3-small">Opróżnij koszyk</a>
     {% else %}
     Koszyk jest pusty
     {% endif %}
