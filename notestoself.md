@@ -18,7 +18,8 @@
 ```php
  /**
  * @Route("/example-route")
-exampleAction($data){
+ */
+public function exampleAction($data){
     $_SESSION['data'][] = $data; //adds data variable to session data array
     return $this->redirect($this->generateUrl('homepage')); // redirects back to homepage
 }
