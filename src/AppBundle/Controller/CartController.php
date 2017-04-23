@@ -20,19 +20,43 @@ class CartController extends Controller
     /**
      * @Route("/add-item/{productID}", name="addOrderItem")
      */
-    public function addOrderItemAction($productID){
+    public function addOrderItemAction($productID)
+    {
         //get product from DB
         $repository = $this->getDoctrine()->getRepository('AppBundle:Product');
         $product = $repository->find($productID);
 
         //set session and get session variables
         $session = $this->get('session');
-        $orderItems = $session -> get('orderItems');
+        $orderItems = $session->get('orderItems');
 
         //add new order to the list
         $orderItem = new OrderItem($product);
-        $orderItems[] = $orderItem;
-        $quantity = count($orderItems);
+
+        $addNewUnique = true; //flag to determine if new item in cart is unique
+        //search for repeating products and increase number of items in order
+        if(is_array($orderItems)){
+            foreach($orderItems as $ordit){
+                if($orderItem->getProduct()->getId() == $ordit->getProduct()->getId()){
+                    $ordit->addNumberOfProducts(1);
+                    $addNewUnique = false; //set the flag
+                    break; //if found one, no need to look further
+                }
+            }
+        }
+
+        //if new product is unique - add it do the list
+        if($addNewUnique){
+            $orderItems[] = $orderItem;
+        }
+
+        //count number of items in the cart
+        $quantity = 0;
+        if(is_array($orderItems)) {
+            foreach ($orderItems as $ordit) {
+                $quantity += $ordit->getNumberOfProducts();
+            }
+        }
 
         //save session variables
         $session->set('quantity', $quantity);
@@ -45,8 +69,6 @@ class CartController extends Controller
      * @Route("/clear",name="clearCart")
      */
     public function clearCard(){
-        //if(isset($_SESSION['quantity'])) unset($_SESSION['quantity']);
-        //if(isset($_SESSION['order-items'])) unset($_SESSION['order-items']);
         $session = $this->get('session');
         $session->remove('quantity');
         $session->remove('orderItems');
