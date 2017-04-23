@@ -40,6 +40,12 @@ class OrderItem
      */
     private $userOrder;
 
+    public function __construct(\AppBundle\Entity\Product $product)
+    {
+        $this->setProduct($product);
+        $this->setNumberOfProducts(1);
+    }
+
     /**
      * Get id
      *
@@ -61,6 +67,16 @@ class OrderItem
     {
         $this->numberOfProducts = $numberOfProducts;
 
+        return $this;
+    }
+
+    /**
+     * Set numberOfProducts to desired value
+     * @param $value to which numberOfProducts will be changed
+     * @return $this
+     */
+    public function addNumberOfProducts($value){
+        $this->numberOfProducts += $value;
         return $this;
     }
 

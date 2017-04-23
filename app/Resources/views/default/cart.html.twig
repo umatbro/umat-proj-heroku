@@ -1,7 +1,11 @@
+{% set quantity = app.session.get('quantity') %}
+{% set orderItems = app.session.get('orderItems') %}
+<h4 class="w3-theme w3-round w3-padding-small"><i class="fa fa-shopping-cart"></i> Koszyk {% if quantity is not null %} ({{ quantity }}) {% endif %}</h4>
 <div class="w3-center w3-padding">
-    {% set quantity = app.session.get('quantity') %}
-    {% if quantity is not null %}
-    {{ quantity }}<br/>
+    {% if quantity is not null and orderItems is not null %}
+        {% for orderItem in orderItems %}
+            {{ orderItem.product.name }} {{ orderItem.numberOfProducts }}<br/>
+        {% endfor %}
     <a href="{{ path('clearCart') }}" class="w3-button w3-theme-l4 w3-hover-theme w3-round w3-small">Opróżnij koszyk</a>
     {% else %}
     Koszyk jest pusty
