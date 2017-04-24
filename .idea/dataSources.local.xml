@@ -9,9 +9,7 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>umat</user-name>
-      <introspection-schemas>*:umat</introspection-schemas>
       <resolve-scope>umat:</resolve-scope>
-      <unqualified-resolve-schemas>umat:</unqualified-resolve-schemas>
     </data-source>
     <data-source name="umat@localhost" uuid="27fd18ed-d411-41d4-ae6a-7b6d5f7a00f0">
       <database-info product="MySQL" version="5.5.5-10.1.21-MariaDB" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">
@@ -21,7 +19,6 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-schemas>*:umat</introspection-schemas>
     </data-source>
     <data-source name="sql8168320@sql8.freesqldatabase.com" uuid="abece15b-452c-4569-964e-b26dfcebcad0">
       <database-info product="MySQL" version="5.5.49-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">
@@ -31,7 +28,6 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>sql8168320</user-name>
-      <introspection-schemas>*:sql8168320</introspection-schemas>
     </data-source>
   </component>
 </project>
