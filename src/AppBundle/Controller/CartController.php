@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\UserOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,5 +74,49 @@ class CartController extends Controller
         $session->remove('quantity');
         $session->remove('orderItems');
         return $this->redirect($this->generateUrl('homepage'));
+    }
+
+
+    /**
+     * @Route("/confirm", name="confirmOrder")
+     */
+    public function confirmAction(){
+        $session = $this->get('session');
+        $orderItems = $session->get('orderItems');
+
+        return $this->render('cart/confirm.html.twig');
+    }
+
+    /**
+     * @Route("/submit", name="submitOrder")
+     */
+    public function submitAction()
+    {
+        $session = $this->get('session');
+        //$auth_checker = $this->get('security.authorization_checker');
+        // Get our Token (representing the currently logged in user)
+        $token = $this->get('security.token_storage')->getToken();
+
+        // Get our user from that token
+        $user = $token->getUser();
+
+        if ($user) {
+            //create UserOrder object using orderItems stored in session
+            $userOrder = new UserOrder($session->get('orderItems'), $user);
+            //get db connection
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userOrder);
+            $em->flush();
+            $message= "Twoje zamówienie zostało zapisane";
+        } else{
+            $message = "Nie jesteś zalogowany";
+        }
+
+        //after adding order to database, remove it from session
+        $session->remove('orderItems');
+        $session->remove('quantity');
+        $session->set('message', $message);
+
+        return $this->redirect($this->generateUrl('confirmOrder'));
     }
 }

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% set orderItems = app.session.get('orderItems') %}
+{% set totalPrice = 0 %}
+{% set message = app.session.get('message') %}
+
+{% block body %}
+    {{ message }}
+    {% for orderItem in orderItems %}
+        {{ orderItem.product.name }}<br/>
+        {% set totalPrice = totalPrice + orderItem.numberOfProducts * orderItem.product.defaultPrice %}
+    {% endfor %}
+    <br/><b>Razem: {{ totalPrice }} zł</b><br/>
+    <a href="{{ path('submitOrder') }}" class="w3-button w3-hover-theme w3-theme-l2">Zamów</a>
+{% endblock %}
+
+{% block rightColumn %}
+{% endblock %}
