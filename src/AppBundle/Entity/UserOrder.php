@@ -37,10 +37,24 @@ class UserOrder
     private $status;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="payment_received", type="boolean")
+     */
+    private $paymentReceived;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="userOrders")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="total_price", type="integer")
+     */
+    private $totalPrice;
 
 
     /**
@@ -49,9 +63,18 @@ class UserOrder
     private $orderItems;
 
 
-    public function __construct()
+    public function __construct($orderItems,$user)
     {
-        $this-> orderItems = new ArrayCollection();
+//        $this-> orderItems = new ArrayCollection();
+        $this->orderItems = $orderItems;
+        $totalPrice=0;
+        foreach($orderItems as $orderItem){
+            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
+        }
+        $this->createdAt = getdate();
+        $this->setUser($user);
+        $this->status = false;
+        $this->paymentReceived=false;
     }
 
 
@@ -169,5 +192,53 @@ class UserOrder
     public function getOrderItems()
     {
         return $this->orderItems;
+    }
+
+    /**
+     * Set paymentReceived
+     *
+     * @param boolean $paymentReceived
+     *
+     * @return UserOrder
+     */
+    public function setPaymentReceived($paymentReceived)
+    {
+        $this->paymentReceived = $paymentReceived;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentReceived
+     *
+     * @return boolean
+     */
+    public function getPaymentReceived()
+    {
+        return $this->paymentReceived;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param integer $totalPrice
+     *
+     * @return UserOrder
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get totalPrice
+     *
+     * @return integer
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
     }
 }

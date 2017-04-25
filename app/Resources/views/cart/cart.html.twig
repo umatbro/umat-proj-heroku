@@ -9,7 +9,7 @@
             {% set totalPrice = totalPrice + orderItem.numberOfProducts * orderItem.product.defaultPrice %}
         {% endfor %}
         <span class="w3-left"><b>Razem:</b></span> <span class="w3-right">{{ totalPrice }} zł</span><br/>
-        <a href="#" class="w3-button w3-theme-l3 w3-hover-theme w3-round w3-margin-top">Zamów</a>
+        <a href="{{ path('confirmOrder') }}" class="w3-button w3-theme-l3 w3-hover-theme w3-round w3-margin-top">Zamów</a>
     {% else %}
     Koszyk jest pusty
     {% endif %}
