@@ -11,7 +11,7 @@
         {% set totalPrice = totalPrice + orderItem.numberOfProducts * orderItem.product.defaultPrice %}
     {% endfor %}
     <br/><b>Razem: {{ totalPrice }} zł</b><br/>
-    <a href="{{ path('#') }}" class="w3-button w3-hover-theme w3-theme-l2">Zamów</a>
+    <a href="#" class="w3-button w3-hover-theme w3-theme-l2">Zamów</a>
 {% endblock %}
 
 {% block rightColumn %}
