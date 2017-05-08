@@ -137,4 +137,12 @@ class OrderItem
     {
         return $this->userOrder;
     }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        $result = $this->getProduct()->getName();
+        $result .= " (".$this->getNumberOfProducts().")";
+        return $result;
+    }
 }

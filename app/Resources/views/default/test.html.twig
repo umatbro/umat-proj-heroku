@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    TEST <br/> {{ username }} <br/>
+    {{ userOrder.totalPrice }} <br/>
+    {{ userOrder.createdAt.mday }} {{ userOrder.createdAt.month }} {{ userOrder.createdAt.year }} {{ userOrder.createdAt.hours }}:{{ userOrder.createdAt.minutes }} <br/>
+    {% for orderItem in orderItems %}
+        {{ orderItem }}<br/>
+    {% endfor %}
+    Payment received: {{ userOrder.paymentReceived ? 'true' : 'false' }}
+
+{% endblock %}

@@ -63,11 +63,13 @@ class UserOrder
     private $orderItems;
 
 
-    public function __construct($orderItems,$user)
+    public function __construct($orderItems,\AppBundle\Entity\User $user)
     {
-//        $this-> orderItems = new ArrayCollection();
-        $this->orderItems = $orderItems;
-        $totalPrice=0;
+        $this-> orderItems = new ArrayCollection();
+        foreach($orderItems as $orderItem){
+            $this->orderItems->add($orderItem);
+        }
+        $this->totalPrice=0;
         foreach($orderItems as $orderItem){
             $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
         }
@@ -75,6 +77,11 @@ class UserOrder
         $this->setUser($user);
         $this->status = false;
         $this->paymentReceived=false;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
     }
 
 

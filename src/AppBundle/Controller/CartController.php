@@ -69,7 +69,7 @@ class CartController extends Controller
     /**
      * @Route("/clear",name="clearCart")
      */
-    public function clearCard(){
+    public function clearCart(){
         $session = $this->get('session');
         $session->remove('quantity');
         $session->remove('orderItems');
@@ -84,6 +84,7 @@ class CartController extends Controller
         $session = $this->get('session');
         $orderItems = $session->get('orderItems');
 
+
         return $this->render('cart/confirm.html.twig');
     }
 
@@ -92,17 +93,23 @@ class CartController extends Controller
      */
     public function submitAction()
     {
-        $session = $this->get('session');
-        //$auth_checker = $this->get('security.authorization_checker');
-        // Get our Token (representing the currently logged in user)
-        $token = $this->get('security.token_storage')->getToken();
+//        $session = $this->get('session');
+//        //$auth_checker = $this->get('security.authorization_checker');
+//        // Get our Token (representing the currently logged in user)
+//        $token = $this->get('security.token_storage')->getToken();
+//
+//        // Get our user from that token
+//        $user = $token->getUser();
 
-        // Get our user from that token
-        $user = $token->getUser();
+        $session = $this->get('session');
+        $orderItems = $session->get('orderItems');
+        $user = $this->getUser(); //->getUsername();
+
+        $userOrder = new UserOrder($orderItems, $user);
 
         if ($user) {
             //create UserOrder object using orderItems stored in session
-            $userOrder = new UserOrder($session->get('orderItems'), $user);
+            $userOrder = new UserOrder($orderItems, $user);
             //get db connection
             $em = $this->getDoctrine()->getManager();
             $em->persist($userOrder);
@@ -116,6 +123,7 @@ class CartController extends Controller
         $session->remove('orderItems');
         $session->remove('quantity');
         $session->set('message', $message);
+
 
         return $this->redirect($this->generateUrl('confirmOrder'));
     }
