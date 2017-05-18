@@ -42,6 +42,14 @@ class DefaultController extends Controller
         $orderItemsFromUserOrder = $userOrder->getOrderItems();
 
         // TODO flush orderItems, not userOrder
+        //persist objects to database
+        $em = $this->getDoctrine()->getManager();
+        $em -> merge($userOrder);
+        foreach($orderItemsFromUserOrder as $ordit){
+            $em->merge($ordit);
+        }
+
+        $em->flush();
 
         return $this->render("default/test.html.twig", ['orderItems' => $orderItemsFromUserOrder, 'username' =>$user,'userOrder' => $userOrder]);
     }
