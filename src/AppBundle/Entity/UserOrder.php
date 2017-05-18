@@ -52,7 +52,7 @@ class UserOrder
     /**
      * @var int
      *
-     * @ORM\Column(name="total_price", type="integer")
+     * @ORM\Column(name="total_price", type="decimal", scale=2, precision=10)
      */
     private $totalPrice;
 
@@ -63,19 +63,26 @@ class UserOrder
     private $orderItems;
 
 
-    public function __construct($orderItems,$user)
+    public function __construct($ordItems,\AppBundle\Entity\User $user)
     {
-//        $this-> orderItems = new ArrayCollection();
-        $this->orderItems = $orderItems;
-        $totalPrice=0;
-        foreach($orderItems as $orderItem){
+        $this-> orderItems = new ArrayCollection();
+        foreach($ordItems as $orderItem){
+            $this->orderItems->add($orderItem);
+        }
+        $this->totalPrice=0;
+        foreach($ordItems as $orderItem){
             $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
         }
-        $this->createdAt = getdate();
+        $this->createdAt = new \DateTime();
         $this->setUser($user);
         $this->status = false;
         $this->paymentReceived=false;
     }
+
+//    public function __toString()
+//    {
+//        // TODO: Implement __toString() method.
+//    }
 
 
     /**
