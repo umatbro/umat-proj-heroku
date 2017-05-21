@@ -58,7 +58,7 @@ class UserOrder
 
 
     /**
-     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder", cascade={"persist", "remove"})
      */
     private $orderItems;
 
