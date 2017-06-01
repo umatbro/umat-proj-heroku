@@ -6,12 +6,37 @@
 
 {% block body %}
     {{ message }}
+<table class="w3-table-all w3-round-small">
+    <thead>
+        <tr class="w3-theme-d3">
+            <th>Produkt</th>
+            <th>Ilość</th>
+            <th class="w3-right" style="margin-right: 50px;">Cena</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for orderItem in orderItems %}
-        {{ orderItem.product.name }}<br/>
         {% set totalPrice = totalPrice + orderItem.numberOfProducts * orderItem.product.defaultPrice %}
+        <tr>
+            <td>{{ orderItem.product.name }}</td>
+            <td>{{ orderItem.numberOfProducts }}</td>
+            <td class="w3-right" style="margin-right: 50px;">{{ (orderItem.numberOfProducts * orderItem.product.defaultPrice) | number_format(2, ',') }} zł</td>
+        </tr>
     {% endfor %}
-    <br/><b>Razem: {{ totalPrice }} zł</b><br/>
-    <a href="#" class="w3-button w3-hover-theme w3-theme-l2">Zamów</a>
+    </tbody>
+    <thead><tr>
+        <th>Razem</th>
+        <th></th>
+        <th class="w3-right" style="margin-right: 50px;">{{ totalPrice | number_format(2,',') }} zł</th>
+    </tr></thead>
+</table>
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <br/>Aby złożyć zamówienie musisz się <a href="{{ path('fos_user_security_login') }}"><b>zalogować</b></a>
+    {% else %}
+        <br/>
+        <a href="#" class="w3-button w3-hover-theme w3-theme-l2 w3-round-small">Zamów</a>
+    {% endif %}
+
 {% endblock %}
 
 {% block rightColumn %}
