@@ -1,0 +1,13 @@
+<div class="w3-card-2 w3-round w3-white">
+    <h4 class="w3-center w3-theme-d1 w3-round w3-padding-small">Profil</h4>
+    <div class="w3-container w3-center w3-padding">
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Nie jesteś zalogowany
+        {% else %}
+            <p class="w3-center w3-padding-large"><img src="{{ asset('img/profile-pic.jpg') }}" class="w3-circle" style="height:106px;width:106px"/></p>
+            <p class="w3-center" style="text-align:justify"> <i class="fa fa-user" aria-hidden="true"></i>
+                {{ app.user.username }} <small> <br/>(<a href="{{ path('fos_user_profile_show') }}">Zobacz profil</a>)</small>
+            </p>
+        {% endif %}
+    </div>
+</div>

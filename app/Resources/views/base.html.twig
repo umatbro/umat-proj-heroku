@@ -82,13 +82,7 @@
         <div class="w3-col m3 w3-hide-medium w3-hide-small">
             {# Lorem ipsum left col #}
             {% block leftColumn %}
-            <div class="w3-card-2 w3-round w3-white">
-                <h4 class="w3-center w3-theme-d1 w3-round w3-padding-small">Lorem ipsum</h4>
-                <div class="w3-container">
-                    <p class="w3-center w3-padding-large"><img src="{{ asset('img/business.jpg') }}" class="w3-circle" style="height:106px;width:106px"/></p>
-                    <p style="text-align:justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in enim finibus, sodales risus sit amet, tempor lectus. Aliquam ut odio nisl. Donec sed ultricies risus. Mauris id nulla erat. Maecenas luctus porttitor augue et luctus. Donec at odio pulvinar, placerat mi quis, finibus lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a arcu feugiat, pretium nulla nec, tincidunt mauris. Nullam tempor sit amet velit et vestibulum. Mauris iaculis molestie nisi, a malesuada ante posuere nec. </p>
-                </div>
-            </div>
+                {% include 'leftnav.html.twig' %}
             {% endblock %}
             {# end of left column #}
         </div>
