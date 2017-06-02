@@ -35,7 +35,7 @@
         <br/>Aby złożyć zamówienie musisz się <a href="{{ path('fos_user_security_login') }}"><b>zalogować</b></a>
     {% else %}
         <br/>
-        <a href="#" class="w3-button w3-hover-theme w3-theme-l2 w3-round-small">Zamów</a>
+        <a href="{{ path('test') }}" class="w3-button w3-hover-theme w3-theme-l2 w3-round-small">Zamów</a>
     {% endif %}
 
 {% endblock %}
