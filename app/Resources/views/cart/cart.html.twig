@@ -5,10 +5,10 @@
 <div class="w3-padding">
     {% if quantity is not null and orderItems is not null %}
         {% for orderItem in orderItems %}
-            <p><span class="w3-left">{{ orderItem.product.name }} ({{ orderItem.numberOfProducts }})</span> <span class="w3-right">{{ orderItem.numberOfProducts * orderItem.product.defaultPrice }} zł</span></p><br/>
+            <p><span class="w3-left">{{ orderItem.product.name }} ({{ orderItem.numberOfProducts }})</span> <span class="w3-right">{{ (orderItem.numberOfProducts * orderItem.product.defaultPrice) | number_format(2, ',')  }} zł</span></p><br/>
             {% set totalPrice = totalPrice + orderItem.numberOfProducts * orderItem.product.defaultPrice %}
         {% endfor %}
-        <span class="w3-left"><b>Razem:</b></span> <span class="w3-right">{{ totalPrice }} zł</span><br/>
+        <span class="w3-left"><b>Razem:</b></span> <span class="w3-right">{{ totalPrice | number_format(2, ',') }} zł</span><br/>
         <a href="{{ path('confirmOrder') }}" class="w3-button w3-theme-l3 w3-hover-theme w3-round w3-margin-top">Zamów</a>
     {% else %}
     Koszyk jest pusty
