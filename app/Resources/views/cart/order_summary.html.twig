@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h3>Złożyłeś zamówienie!</h3>
+    ID twojego zamówienia {{ "%03d" |format(userOrder.id) }}<br/>
+    Data: {{ userOrder.createdAt| date("d/m/Y H:i") }}<br/>
+    Zapłać xd
+{% endblock %}
+
+{% block rightColumn %}
+{% endblock %}

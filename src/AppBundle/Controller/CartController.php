@@ -7,6 +7,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\UserOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -81,9 +82,6 @@ class CartController extends Controller
      * @Route("/confirm", name="confirmOrder")
      */
     public function confirmAction(){
-        $session = $this->get('session');
-        $orderItems = $session->get('orderItems');
-
         return $this->render('cart/confirm.html.twig');
     }
 
@@ -92,31 +90,50 @@ class CartController extends Controller
      */
     public function submitAction()
     {
-        $session = $this->get('session');
-        //$auth_checker = $this->get('security.authorization_checker');
-        // Get our Token (representing the currently logged in user)
-        $token = $this->get('security.token_storage')->getToken();
+        $session = $this -> get('session');
+        $orderItems = $session->get('orderItems');
+        $em = $this->getDoctrine()->getManager();
+        $usr= $this->get('security.token_storage')->getToken()->getUser();
 
-        // Get our user from that token
-        $user = $token->getUser();
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Product');
+        $userOrder = new UserOrder();
+        $totalPrice = 0;
 
-        if ($user) {
-            //create UserOrder object using orderItems stored in session
-            $userOrder = new UserOrder($session->get('orderItems'), $user);
-            //get db connection
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($userOrder);
-            $em->flush();
-            $message= "Twoje zamówienie zostało zapisane";
-        } else{
-            $message = "Nie jesteś zalogowany";
+        foreach($orderItems as $orderItem){
+            $orderItem->setUser($usr);
+            $product = $repository->find($orderItem->getProduct()->getId());
+            $orderItem->setProduct($product);
+            $category = $product->getCategory();
+            $orderItem->getProduct()->setCategory($category);
+            $userOrder->addOrderItem($orderItem);
+            $totalPrice += ($orderItem -> getNumberOfProducts()) * ($orderItem -> getProduct() -> getDefaultPrice());
         }
+        foreach($orderItems as $orderItem){
+            $orderItem->setUserOrder($userOrder);
+            $em->persist($orderItem);
+        }
+        $userOrder->setTotalPrice($totalPrice);
+        $em->persist($userOrder);
+        $em->flush();
+        $em->clear();
 
-        //after adding order to database, remove it from session
         $session->remove('orderItems');
         $session->remove('quantity');
-        $session->set('message', $message);
 
-        return $this->redirect($this->generateUrl('confirmOrder'));
+        return $this->redirect($this->generateUrl('orderSummary', [
+            "userOrderId" => $userOrder
+        ]));
+    }
+
+    /**
+     * @Route("/summary/{userOrderId}", name="orderSummary")
+     */
+    public function summaryAction($userOrderId){
+        $int = intval(preg_replace('/[^0-9]+/', '', $userOrderId), 10);
+        $em = $this -> getDoctrine() -> getManager();
+        $userOrder = $em->find('AppBundle\Entity\UserOrder', $int);
+        return $this->render('cart/order_summary.html.twig',[
+            "userOrder" => $userOrder
+        ]);
     }
 }

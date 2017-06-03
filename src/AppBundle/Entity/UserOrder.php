@@ -72,10 +72,11 @@ class UserOrder
         $this->paymentReceived=false;
     }
 
-//    public function __toString()
-//    {
-//        // TODO: Implement __toString() method.
-//    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return "id".$this->getId();
+    }
 
 
     /**
