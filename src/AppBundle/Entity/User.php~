@@ -20,14 +20,16 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserOrder", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="user")
      */
-    private $userOrders;
+    private $orderItems;
 
     public function __construct()
     {
         parent::__construct();
     // your own logic
-        $this->userOrders = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
+
+  
 }

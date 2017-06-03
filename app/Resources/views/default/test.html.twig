@@ -2,4 +2,7 @@
 
 {% block body %}
 ELO
+    {% for orderItem in orderItems %}
+    {{ orderItem.product.id }} - {{ category }}, {{ orderItem.product.category.name }} {{ orderItem.user.username }} <br/>
+    {% endfor %}
 {% endblock %}

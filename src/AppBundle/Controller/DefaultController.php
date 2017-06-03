@@ -30,7 +30,28 @@ class DefaultController extends Controller
      * @Route("/test", name="test")
      */
     public function testAction(){
-        return $this->render('default/test.html.twig');
+        $session = $this -> get('session');
+        $orderItems = $session->get('orderItems');
+        $em = $this->getDoctrine()->getManager();
+        $usr= $this->get('security.token_storage')->getToken()->getUser();
+
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Product');
+
+        foreach($orderItems as $orderItem){
+            $orderItem->setUser($usr);
+            $product = $repository->find($orderItem->getProduct()->getId());
+            $orderItem->setProduct($product);
+            $category = $product->getCategory();
+            $orderItem->getProduct()->setCategory($category);
+            $em->persist($orderItem);
+        }
+       $em->flush();
+
+
+        return $this->render('default/test.html.twig',["orderItems"=> $orderItems,
+            "username"=> $usr->getUsername(),
+            "category" => $category
+            ]);
     }
 
 

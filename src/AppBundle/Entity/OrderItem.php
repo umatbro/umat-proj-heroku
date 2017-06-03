@@ -29,16 +29,17 @@ class OrderItem
     private $numberOfProducts;
 
     /**
-     * @ORM\OneToOne(targetEntity="Product")
+     * @ORM\OneToOne(targetEntity="Product", cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems")
-     * @ORM\JoinColumn(name="userorder_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orderItems")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userOrder;
+    private $user;
+
 
     public function __construct(\AppBundle\Entity\Product $product)
     {
@@ -114,27 +115,28 @@ class OrderItem
         return $this->product;
     }
 
+
     /**
-     * Set userOrder
+     * Set user
      *
-     * @param \AppBundle\Entity\UserOrder $userOrder
+     * @param \AppBundle\Entity\User $user
      *
      * @return OrderItem
      */
-    public function setUserOrder(\AppBundle\Entity\UserOrder $userOrder = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->userOrder = $userOrder;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userOrder
+     * Get user
      *
-     * @return \AppBundle\Entity\UserOrder
+     * @return \AppBundle\Entity\User
      */
-    public function getUserOrder()
+    public function getUser()
     {
-        return $this->userOrder;
+        return $this->user;
     }
 }

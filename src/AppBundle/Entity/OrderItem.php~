@@ -29,16 +29,28 @@ class OrderItem
     private $numberOfProducts;
 
     /**
-     * @ORM\OneToOne(targetEntity="Product")
+     * @ORM\OneToOne(targetEntity="Product", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems")
-     * @ORM\JoinColumn(name="userorder_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orderItems")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userOrder;
+    private $user;
+
+//    /**
+//     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems")
+//     * @ORM\JoinColumn(name="userorder_id", referencedColumnName="id")
+//     */
+//    private $userOrder;
+
+    public function __construct(\AppBundle\Entity\Product $product)
+    {
+        $this->setProduct($product);
+        $this->setNumberOfProducts(1);
+    }
 
     /**
      * Get id
@@ -65,6 +77,16 @@ class OrderItem
     }
 
     /**
+     * Set numberOfProducts to desired value
+     * @param $value to which numberOfProducts will be changed
+     * @return $this
+     */
+    public function addNumberOfProducts($value){
+        $this->numberOfProducts += $value;
+        return $this;
+    }
+
+    /**
      * Get numberOfProducts
      *
      * @return int
@@ -73,5 +95,76 @@ class OrderItem
     {
         return $this->numberOfProducts;
     }
-}
 
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     *
+     * @return OrderItem
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set userOrder
+     *
+     * @param \AppBundle\Entity\UserOrder $userOrder
+     *
+     * @return OrderItem
+     */
+    public function setUserOrder(\AppBundle\Entity\UserOrder $userOrder = null)
+    {
+        $this->userOrder = $userOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get userOrder
+     *
+     * @return \AppBundle\Entity\UserOrder
+     */
+    public function getUserOrder()
+    {
+        return $this->userOrder;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return OrderItem
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

@@ -44,12 +44,6 @@ class UserOrder
     private $paymentReceived;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="userOrders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="total_price", type="decimal", scale=2, precision=10)
@@ -57,26 +51,25 @@ class UserOrder
     private $totalPrice;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
-     */
-    private $orderItems;
+//    /**
+//     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
+//     */
+//    private $orderItems;
 
 
     public function __construct($ordItems,\AppBundle\Entity\User $user)
     {
-        $this-> orderItems = new ArrayCollection();
-        foreach($ordItems as $orderItem){
-            $this->orderItems->add($orderItem);
-        }
-        $this->totalPrice=0;
-        foreach($ordItems as $orderItem){
-            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
-        }
-        $this->createdAt = new \DateTime();
-        $this->setUser($user);
-        $this->status = false;
-        $this->paymentReceived=false;
+//        $this-> orderItems = new ArrayCollection();
+//        foreach($ordItems as $orderItem){
+//            $this->orderItems->add($orderItem);
+//        }
+//        $this->totalPrice=0;
+//        foreach($ordItems as $orderItem){
+//            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
+//        }
+//        $this->createdAt = new \DateTime();
+//        $this->status = false;
+//        $this->paymentReceived=false;
     }
 
 //    public function __toString()
@@ -141,30 +134,6 @@ class UserOrder
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return UserOrder
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 
     /**

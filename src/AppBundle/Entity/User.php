@@ -20,48 +20,50 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserOrder", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="user")
      */
-    private $userOrders;
+    private $orderItems;
 
     public function __construct()
     {
         parent::__construct();
     // your own logic
-        $this->userOrders = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
+  
+
     /**
-     * Add userOrder
+     * Add orderItem
      *
-     * @param \AppBundle\Entity\UserOrder $userOrder
+     * @param \AppBundle\Entity\OrderItem $orderItem
      *
      * @return User
      */
-    public function addUserOrder(\AppBundle\Entity\UserOrder $userOrder)
+    public function addOrderItem(\AppBundle\Entity\OrderItem $orderItem)
     {
-        $this->userOrders[] = $userOrder;
+        $this->orderItems[] = $orderItem;
 
         return $this;
     }
 
     /**
-     * Remove userOrder
+     * Remove orderItem
      *
-     * @param \AppBundle\Entity\UserOrder $userOrder
+     * @param \AppBundle\Entity\OrderItem $orderItem
      */
-    public function removeUserOrder(\AppBundle\Entity\UserOrder $userOrder)
+    public function removeOrderItem(\AppBundle\Entity\OrderItem $orderItem)
     {
-        $this->userOrders->removeElement($userOrder);
+        $this->orderItems->removeElement($orderItem);
     }
 
     /**
-     * Get userOrders
+     * Get orderItems
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUserOrders()
+    public function getOrderItems()
     {
-        return $this->userOrders;
+        return $this->orderItems;
     }
 }
