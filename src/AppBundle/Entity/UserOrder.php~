@@ -44,15 +44,9 @@ class UserOrder
     private $paymentReceived;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="userOrders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
      * @var int
      *
-     * @ORM\Column(name="total_price", type="integer")
+     * @ORM\Column(name="total_price", type="decimal", scale=2, precision=10)
      */
     private $totalPrice;
 
@@ -63,19 +57,25 @@ class UserOrder
     private $orderItems;
 
 
-    public function __construct($orderItems,$user)
+    public function __construct()
     {
-//        $this-> orderItems = new ArrayCollection();
-        $this->orderItems = $orderItems;
-        $totalPrice=0;
-        foreach($orderItems as $orderItem){
-            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
-        }
-        $this->createdAt = getdate();
-        $this->setUser($user);
+        $this-> orderItems = new ArrayCollection();
+//        foreach($ordItems as $orderItem){
+//            $this->orderItems->add($orderItem);
+//        }
+//        $this->totalPrice=0;
+//        foreach($ordItems as $orderItem){
+//            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
+//        }
+        $this->createdAt = new \DateTime();
         $this->status = false;
         $this->paymentReceived=false;
     }
+
+//    public function __toString()
+//    {
+//        // TODO: Implement __toString() method.
+//    }
 
 
     /**
@@ -137,30 +137,6 @@ class UserOrder
     }
 
     /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return UserOrder
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Add orderItem
      *
      * @param \AppBundle\Entity\OrderItem $orderItem
@@ -192,5 +168,53 @@ class UserOrder
     public function getOrderItems()
     {
         return $this->orderItems;
+    }
+
+    /**
+     * Set paymentReceived
+     *
+     * @param boolean $paymentReceived
+     *
+     * @return UserOrder
+     */
+    public function setPaymentReceived($paymentReceived)
+    {
+        $this->paymentReceived = $paymentReceived;
+
+        return $this;
+    }
+
+    /**
+     * Get paymentReceived
+     *
+     * @return boolean
+     */
+    public function getPaymentReceived()
+    {
+        return $this->paymentReceived;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param integer $totalPrice
+     *
+     * @return UserOrder
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get totalPrice
+     *
+     * @return integer
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
     }
 }

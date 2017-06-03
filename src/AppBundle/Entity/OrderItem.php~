@@ -29,7 +29,7 @@ class OrderItem
     private $numberOfProducts;
 
     /**
-     * @ORM\OneToOne(targetEntity="Product", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Product", cascade={"persist"})
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -40,11 +40,12 @@ class OrderItem
      */
     private $user;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems")
-//     * @ORM\JoinColumn(name="userorder_id", referencedColumnName="id")
-//     */
-//    private $userOrder;
+    /**
+     * @ORM\ManyToOne(targetEntity="UserOrder", inversedBy="orderItems", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     */
+    private $userOrder;
+
 
     public function __construct(\AppBundle\Entity\Product $product)
     {
@@ -120,6 +121,31 @@ class OrderItem
         return $this->product;
     }
 
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return OrderItem
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     /**
      * Set userOrder
      *
@@ -145,26 +171,26 @@ class OrderItem
     }
 
     /**
-     * Set user
+     * Add product
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\Product $product
      *
      * @return OrderItem
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function addProduct(\AppBundle\Entity\Product $product)
     {
-        $this->user = $user;
+        $this->product[] = $product;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Remove product
      *
-     * @return \AppBundle\Entity\User
+     * @param \AppBundle\Entity\Product $product
      */
-    public function getUser()
+    public function removeProduct(\AppBundle\Entity\Product $product)
     {
-        return $this->user;
+        $this->product->removeElement($product);
     }
 }

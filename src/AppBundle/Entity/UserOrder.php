@@ -51,15 +51,15 @@ class UserOrder
     private $totalPrice;
 
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
-//     */
-//    private $orderItems;
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="userOrder")
+     */
+    private $orderItems;
 
 
-    public function __construct($ordItems,\AppBundle\Entity\User $user)
+    public function __construct()
     {
-//        $this-> orderItems = new ArrayCollection();
+        $this-> orderItems = new ArrayCollection();
 //        foreach($ordItems as $orderItem){
 //            $this->orderItems->add($orderItem);
 //        }
@@ -67,9 +67,9 @@ class UserOrder
 //        foreach($ordItems as $orderItem){
 //            $this->totalPrice += $orderItem->getNumberOfProducts() * $orderItem->getProduct()->getDefaultPrice();
 //        }
-//        $this->createdAt = new \DateTime();
-//        $this->status = false;
-//        $this->paymentReceived=false;
+        $this->createdAt = new \DateTime();
+        $this->status = false;
+        $this->paymentReceived=false;
     }
 
 //    public function __toString()
