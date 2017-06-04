@@ -28,6 +28,31 @@ class UserOrderController extends Controller
 
         return $this->render('AppBundle:Admin:orders.html.twig', array(
             'orders' => $userOrders,
+            'user' => null
+            ));
+    }
+
+    /**
+     * @Route("/{userId}", name="admin_view_user_orders")
+     */
+    public function viewUserOrdersAction($userId){
+        $em = $this->getDoctrine()->getManager();
+        $orderItems = $orderItems = $em->getRepository('AppBundle\Entity\OrderItem') -> findBy([
+            'user' => $userId
+        ]);
+
+        $user = $em->getRepository('AppBundle:User')->find($userId);
+        $userOrders = [];
+        $searched = [];
+        foreach($orderItems as $item){
+            $orderId = $item->getUserOrder()->getId();
+            if(!in_array($orderId, $searched))
+                $userOrders[] = $em->getRepository("AppBundle\Entity\UserOrder") -> find($orderId);
+            $searched[] = $orderId;
+        }
+        return $this->render('AppBundle:Admin:orders.html.twig', array(
+            'orders' => $userOrders,
+            'user' => $user
         ));
     }
 

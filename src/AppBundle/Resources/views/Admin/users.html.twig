@@ -6,7 +6,7 @@
         <li class="w3-padding-16 w3-hover-theme">
             <i class="fa fa-user fa-2x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
             <span class="w3-large">{{ user.username }} | {{ user.email }}</span>
-            <span class="w3-right">Zobacz zamówienia</span>
+            <span class="w3-right"><a href="{{ path('admin_view_user_orders', {'userId' : user.id }) }}">Zobacz zamówienia</a></span>
             <br/>
         </li>
     {% endfor %}

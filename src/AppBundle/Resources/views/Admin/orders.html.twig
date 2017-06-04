@@ -2,6 +2,12 @@
 
 {% block body %}
     <div class="w3-responsive">
+        {% if user is not null %}
+        <div class="w3-padding">
+            <h3>Zamówienia użytkownika <span class="w3-text-theme">{{ user.username }}</span></h3>
+        </div>
+        {% endif %}
+
         <table class="w3-table-all w3-small">
             <thead class="w3-text-theme">
             <tr>
