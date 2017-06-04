@@ -1,6 +1,27 @@
 {% extends "@FOSUser/layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-{% include "@FOSUser/Profile/show_content.html.twig" %}
-    <a href="{{ path('fos_user_change_password') }}">Zmień hasło</a>
-{% endblock fos_user_content %}
+{% block fos_user_cont_outer %}
+    <ul class="w3-ul w3-card-4 w3-text-theme">
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-user fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large">{{ user.username }}</span><br>
+            <small>{{ 'profile.show.username'|trans }}</small>
+        </li>
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-envelope fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large">{{ user.email }}</span><br/>
+            <small>{{ 'profile.show.email'|trans }}</small>
+        </li>
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-lock fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large"><a href="{{ path('fos_user_change_password') }}">Zmień hasło</a></span><br/>
+            <small>Zabezpieczenia</small>
+        </li>
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-cubes fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large"><a href="#">Zamówienia</a></span><br/>
+            <small>Zobacz swoje zamówienia</small>
+        </li>
+    </ul>
+{% endblock fos_user_cont_outer %}

@@ -24,8 +24,10 @@
         {% endfor %}
     {% endif %}
     {% endblock authenticated_test %}
+    {% block fos_user_cont_outer %}
     <div class="w3-card w3-padding w3-white w3-round">
         {% block fos_user_content %}
         {% endblock fos_user_content %}
     </div>
+    {% endblock %}
 {% endblock %}
