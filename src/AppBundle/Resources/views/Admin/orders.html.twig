@@ -1,0 +1,30 @@
+{% extends 'AppBundle:Admin:admin.html.twig' %}
+
+{% block body %}
+    <div class="w3-responsive">
+        <table class="w3-table-all w3-small">
+            <thead class="w3-text-theme">
+            <tr>
+                <th>ID</th>
+                <th>Cena całkowita</th>
+                <th>Status płatności</th>
+                <th>Status wysyłki</th>
+                <th>Data utworzenia</th>
+                <th>-</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.totalPrice | number_format(2, ',') }}</td>
+                    <td>{{ order.paymentReceived ? 'Zapłacono' : 'Nie zapłacono'}}</td>
+                    <td>{{ order.status ? 'Wysłano' : 'Nie wysłano' }}</td>
+                    <td>{{ order.createdAt | date("d/m/Y H:i") }}</td>
+                    <td>Zobacz szczegóły</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

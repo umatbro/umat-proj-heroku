@@ -17,7 +17,7 @@ class UserOrderController extends Controller
     /**
      * Lists all userOrder entities.
      *
-     * @Route("/", name="admin_orders_index")
+     * @Route("/", name="admin_view_orders")
      * @Method("GET")
      */
     public function indexAction()
@@ -26,8 +26,8 @@ class UserOrderController extends Controller
 
         $userOrders = $em->getRepository('AppBundle:UserOrder')->findAll();
 
-        return $this->render('userorder/index.html.twig', array(
-            'userOrders' => $userOrders,
+        return $this->render('AppBundle:Admin:orders.html.twig', array(
+            'orders' => $userOrders,
         ));
     }
 
