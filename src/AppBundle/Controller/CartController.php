@@ -121,7 +121,7 @@ class CartController extends Controller
         $session->remove('quantity');
 
         return $this->redirect($this->generateUrl('orderSummary', [
-            "userOrderId" => $userOrder
+            "userOrderId" => $userOrder->getId()
         ]));
     }
 
@@ -129,9 +129,9 @@ class CartController extends Controller
      * @Route("/summary/{userOrderId}", name="orderSummary")
      */
     public function summaryAction($userOrderId){
-        $int = intval(preg_replace('/[^0-9]+/', '', $userOrderId), 10);
+        // $int = intval(preg_replace('/[^0-9]+/', '', $userOrderId), 10);
         $em = $this -> getDoctrine() -> getManager();
-        $userOrder = $em->find('AppBundle\Entity\UserOrder', $int);
+        $userOrder = $em->find('AppBundle\Entity\UserOrder', $userOrderId);
         return $this->render('cart/order_summary.html.twig',[
             "userOrder" => $userOrder
         ]);

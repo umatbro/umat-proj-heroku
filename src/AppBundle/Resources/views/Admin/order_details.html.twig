@@ -1,0 +1,42 @@
+{% extends 'AppBundle:Admin:admin.html.twig' %}
+
+{% block body %}
+    <div class="w3-center">
+        <h3 class="w3-theme-d4 w3-padding" style="margin-bottom:0px;">
+            Zamówienie <b>id <span class="">{{ "%04d" |format(userOrder.id) }}</b>
+        </h3>
+        <h4 class="w3-theme-d1 w3-padding" style="margin-top:0px;">Użytkownik: {{ orderItems[0].user.username }}</h4>
+        <h6>Data złożenia zamówienia<br/>{{ userOrder.createdAt | date("d/m/Y H:i") }}</h6>
+    </div>
+    <div class="w3-col m6 w3-theme-light w3-border-theme w3-border-right w3-padding-large w3-center" style="min-height:100px;">
+        Status płatności<br/>
+        {% if userOrder.paymentReceived %}
+            <div class="w3-tag w3-padding w3-green w3-center w3-margin-top">Zapłacono</div>
+        {% else %}
+            <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Nie zapłacono</div>
+        {% endif %}
+        <br/><br/>
+        <a href="{{ path('admin_change_payment_status', { 'id' : userOrder.id }) }}">Uaktualnij</a>
+    </div>
+    <div class="w3-col m6 w3-theme-light w3-padding-large w3-center" style="min-height:100px">
+        Status wysyłki<br/>
+        {% if userOrder.status %}
+            <div class="w3-tag w3-padding w3-green w3-center w3-margin-top">Wysłano</div>
+        {% else %}
+            <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Nie wysłano</div>
+        {% endif %}
+        <br/><br/>
+        <a href="{{ path('admin_change_delivery_status', { 'id' : userOrder.id }) }}">Uaktualnij</a>
+    </div>
+    <hr/>
+    <div class="w3-padding w3-container">
+    <hr/>
+    {% for item in orderItems %}
+        ID: {{ item.id }}<br/>
+        Username: {{ item.user.username }}<br/>
+        ProductID: {{ item.product.id }}<br/>
+        product name: {{ item.product.name }}
+        <hr/>
+    {% endfor %}
+    </div>
+{% endblock %}

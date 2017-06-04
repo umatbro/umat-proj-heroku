@@ -31,106 +31,46 @@ class UserOrderController extends Controller
         ));
     }
 
-//    /**
-//     * Creates a new userOrder entity.
-//     *
-//     * @Route("/new", name="admin_orders_new")
-//     * @Method({"GET", "POST"})
-//     */
-//    public function newAction(Request $request)
-//    {
-//        $userOrder = new Userorder();
-//        $form = $this->createForm('AppBundle\Form\UserOrderType', $userOrder);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($userOrder);
-//            $em->flush($userOrder);
-//
-//            return $this->redirectToRoute('admin_orders_show', array('id' => $userOrder->getId()));
-//        }
-//
-//        return $this->render('userorder/new.html.twig', array(
-//            'userOrder' => $userOrder,
-//            'form' => $form->createView(),
-//        ));
-//    }
-
     /**
-     * Finds and displays a userOrder entity.
-     *
-     * @Route("/{id}", name="admin_orders_show")
-     * @Method("GET")
+     * @Route("/details/{id}", name="admin_order_details")
      */
-    public function showAction(UserOrder $userOrder)
-    {
-        $deleteForm = $this->createDeleteForm($userOrder);
-
-        return $this->render('userorder/show.html.twig', array(
-            'userOrder' => $userOrder,
-            'delete_form' => $deleteForm->createView(),
-        ));
+    public function detailsAction($id){
+        $em = $this -> getDoctrine() -> getManager();
+        $orderItems = $em->getRepository('AppBundle\Entity\OrderItem') -> findBy([
+            'userOrder' => $id
+        ]);
+        $userOrder = $em->getRepository('AppBundle\Entity\UserOrder') -> find($id);
+        return $this->render('AppBundle:Admin:order_details.html.twig', [
+           "orderItems" => $orderItems,
+            "userOrder" => $userOrder
+        ]);
     }
 
     /**
-     * Displays a form to edit an existing userOrder entity.
-     *
-     * @Route("/{id}/edit", name="admin_orders_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/change-order-payment-status/{id}", name="admin_change_payment_status")
      */
-    public function editAction(Request $request, UserOrder $userOrder)
-    {
-        $deleteForm = $this->createDeleteForm($userOrder);
-        $editForm = $this->createForm('AppBundle\Form\UserOrderType', $userOrder);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_orders_edit', array('id' => $userOrder->getId()));
-        }
-
-        return $this->render('userorder/edit.html.twig', array(
-            'userOrder' => $userOrder,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+    public function changePaymentStatusAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $userOrder = $em->getRepository('AppBundle\Entity\UserOrder') -> find($id);
+        $userOrder->setPaymentReceived(!($userOrder->getPaymentReceived()));
+        $em->persist($userOrder);
+        $em->flush();
+        return $this->redirect($this->generateUrl('admin_order_details',[
+            'id' => $id
+        ]));
     }
 
     /**
-     * Deletes a userOrder entity.
-     *
-     * @Route("/{id}", name="admin_orders_delete")
-     * @Method("DELETE")
+     * @Route("/change-delivery-status/{id}", name="admin_change_delivery_status")
      */
-    public function deleteAction(Request $request, UserOrder $userOrder)
-    {
-        $form = $this->createDeleteForm($userOrder);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($userOrder);
-            $em->flush($userOrder);
-        }
-
-        return $this->redirectToRoute('admin_orders_index');
-    }
-
-    /**
-     * Creates a form to delete a userOrder entity.
-     *
-     * @param UserOrder $userOrder The userOrder entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(UserOrder $userOrder)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_orders_delete', array('id' => $userOrder->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+    public function changeDeliveryStatusAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $userOrder = $em->getRepository('AppBundle\Entity\UserOrder') -> find($id);
+        $userOrder->setStatus(!($userOrder->getStatus()));
+        $em->persist($userOrder);
+        $em->flush();
+        return $this->redirect($this->generateUrl('admin_order_details',[
+            'id' => $id
+        ]));
     }
 }

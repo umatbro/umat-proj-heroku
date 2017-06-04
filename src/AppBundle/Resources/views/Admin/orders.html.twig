@@ -18,10 +18,16 @@
                 <tr>
                     <td>{{ order.id }}</td>
                     <td>{{ order.totalPrice | number_format(2, ',') }}</td>
-                    <td>{{ order.paymentReceived ? 'Zapłacono' : 'Nie zapłacono'}}</td>
-                    <td>{{ order.status ? 'Wysłano' : 'Nie wysłano' }}</td>
+                    <td class="w3-center">{{ order.paymentReceived ?
+                        '<i class="fa fa-check w3-text-green" aria-hidden="true"></i>' :
+                        '<i class="fa fa-times w3-text-red" aria-hidden="true"></i>'}}
+                    </td>
+                    <td class="w3-center">{{ order.status ?
+                        '<i class="fa fa-check w3-text-green" aria-hidden="true"></i>' :
+                        '<i class="fa fa-times w3-text-red" aria-hidden="true"></i>' }}
+                    </td>
                     <td>{{ order.createdAt | date("d/m/Y H:i") }}</td>
-                    <td>Zobacz szczegóły</td>
+                    <td><a href="{{ path('admin_order_details', { 'id' : order.id }) }}">Zobacz szczegóły</a></td>
                 </tr>
             {% endfor %}
             </tbody>
