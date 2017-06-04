@@ -1,5 +1,7 @@
 {% extends "::base.html.twig" %}
 
+{% block rightColumn %}
+{% endblock %}
 {% block title %}Admin panel{% endblock %}
 {% block stylesheets %}
     <style>td {
@@ -15,13 +17,41 @@
             <a href="{{ path('admin') }}" ><li class="w3-theme-d5 w3-hover-theme">Panel</li></a>
             <a href="{{ path('admin_product_index') }}"><li class="w3-hover-theme">Produkty</li></a>
             <a href="{{ path('admin_category_index') }}"><li class="w3-hover-theme">Kategorie</li></a>
+            <a href="{{ path('admin_view_users') }}"><li class="w3-hover-theme">Użytkownicy</li></a>
         </ul>
     </div>
 {% endblock %}
 {% block body %}
-    <h1>Welcome to the Admin page</h1>
-    <ul class="w3-ul w3-border w3-cell">
-        <a href="{{ path('admin_product_index') }}"><li class="w3-hover-theme">Produkty</li></a>
-        <a href="{{ path('admin_category_index') }}"><li class="w3-hover-theme">Kategorie</li></a>
+    <h1 class="w3-container w3-text-theme">Panel administracyjny</h1>
+
+    <ul class="w3-ul w3-text-theme">
+        <a href="{{ path('admin_product_index') }}">
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-cubes fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large">Produkty</span><br/>
+            <small>Edytuj produkty</small>
+        </li>
+        </a>
+        <a href="{{ path('admin_category_index') }}">
+        <li class="w3-padding-16 w3-hover-theme">
+            <i class="fa fa-tags fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+            <span class="w3-large">Kategorie</span><br/>
+            <small>Edytuj kategorie</small>
+        </li>
+        </a>
+        <a href="{{ path('admin_view_users') }}">
+            <li class="w3-padding-16 w3-hover-theme">
+                <i class="fa fa-users fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+                <span class="w3-large">Użytkownicy</span><br/>
+                <small>Zobacz użytkowników</small>
+            </li>
+        </a>
+        <a href="#">
+            <li class="w3-padding-16 w3-hover-theme">
+                <i class="fa fa-truck fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
+                <span class="w3-large">Zamówienia</span><br/>
+                <small>Zobacz zamówienia</small>
+            </li>
+        </a>
     </ul>
 {% endblock %}

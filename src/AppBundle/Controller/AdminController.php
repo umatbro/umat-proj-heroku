@@ -20,4 +20,16 @@ class AdminController extends Controller
         ));
     }
 
+    /**
+     * @Route("/users", name="admin_view_users")
+     */
+    public function viewUsersAction(){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->findAll();
+
+        return $this->render('AppBundle:Admin:users.html.twig', [
+            "users" => $users
+        ]);
+    }
+
 }
