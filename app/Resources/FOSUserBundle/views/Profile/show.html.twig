@@ -13,15 +13,19 @@
             <span class="w3-large">{{ user.email }}</span><br/>
             <small>{{ 'profile.show.email'|trans }}</small>
         </li>
+        <a href="{{ path('fos_user_change_password') }}">
         <li class="w3-padding-16 w3-hover-theme">
             <i class="fa fa-lock fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
-            <span class="w3-large"><a href="{{ path('fos_user_change_password') }}">Zmień hasło</a></span><br/>
+            <span class="w3-large">Zmień hasło</span><br/>
             <small>Zabezpieczenia</small>
         </li>
+        </a>
+        <a href="{{ path('profile_orders') }}">
         <li class="w3-padding-16 w3-hover-theme">
             <i class="fa fa-cubes fa-3x w3-left w3-circle w3-margin-right" aria-hidden="true"></i>
-            <span class="w3-large"><a href="#">Zamówienia</a></span><br/>
+            <span class="w3-large">Zamówienia</span><br/>
             <small>Zobacz swoje zamówienia</small>
         </li>
+        </a>
     </ul>
 {% endblock fos_user_cont_outer %}

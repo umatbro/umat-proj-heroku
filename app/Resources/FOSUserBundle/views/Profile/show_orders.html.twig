@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {#<h1>{{ user.username }}</h1>#}
+    <div class="w3-responsive">
+    <table class="w3-table-all w3-small">
+        <thead class="w3-text-theme">
+        <tr>
+            <th>ID</th>
+            <th>Cena całkowita</th>
+            <th>Status płatności</th>
+            <th>Status wysyłki</th>
+            <th>Data utworzenia</th>
+            <th>-</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ "%04d" |format(order.id) }}</td>
+                <td>{{ order.totalPrice | number_format(2, ',') }}</td>
+                <td class="w3-center">{{ order.paymentReceived ?
+                    '<i class="fa fa-check w3-text-green" aria-hidden="true"></i>' :
+                    '<i class="fa fa-times w3-text-red" aria-hidden="true"></i>'}}
+                </td>
+                <td class="w3-center">{{ order.status ?
+                    '<i class="fa fa-check w3-text-green" aria-hidden="true"></i>' :
+                    '<i class="fa fa-times w3-text-red" aria-hidden="true"></i>' }}
+                </td>
+                <td>{{ order.createdAt | date("d/m/Y H:i") }}</td>
+                <td>
+                    <button onclick="document.getElementById('id{{ order.id }}').style.display='block'" class="w3-button w3-theme-l1 w3-hover-theme">
+                        Zobacz szczegóły
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    {# Create modals for all user orders #}
+    {% for order in orders %}
+        <div id="id{{ order.id }}" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+                <header class="w3-container w3-theme-d4 w3-center">
+                    <h3>Zamówienie <b>{{ "%04d" |format(order.id) }}</b></h3>
+                    <span onclick="document.getElementById('id{{ order.id }}').style.display='none'"
+                          class="w3-button w3-display-topright"><i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
+                </header>
+                <div class="w3-container w3-theme-d1 w3-center">
+                    <h4>Data: {{ order.createdAt| date("d/m/Y") }}
+                    <br/>{{ order.createdAt | date("H:i") }}</h4>
+                </div>
+                <div class="w3-col m6 w3-theme-light w3-border-theme w3-border-right w3-padding-large w3-center" style="min-height:100px;">
+                    Status płatności<br/>
+                    {% if order.paymentReceived %}
+                        <div class="w3-tag w3-padding w3-green w3-center w3-margin-top">Zapłacono</div>
+                        <br/><br/><br/>
+                    {% else %}
+                        <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Nie zapłacono <i>({{ order.totalPrice }} zł)</i></div>
+                        <br/><br/>
+                        <a href="#">Przejdź do płatności</a>
+                    {% endif %}
+                    </div>
+                <div class="w3-col m6 w3-theme-light w3-padding-large w3-center" style="min-height:100px">
+                    Status wysyłki<br/>
+                    {% if order.status %}
+                        <div class="w3-tag w3-padding w3-green w3-center w3-margin-top">Wysłano</div>
+                    {% elseif order.paymentReceived and not order.status %}
+                        <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Przekazany do wysyłki</div>
+                    {% else %}
+                        <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Oczekiwanie na płatność</div>
+                    {% endif %}
+                    <br/><br/>
+                    <a href="#"><br/></a>
+                </div>
+                <div class="w3-container w3-padding">
+                {% for item in orderItems %}
+                {% if item.userOrder.id == order.id %}
+                    <div class="w3-panel w3-theme-l5 w3-border-theme w3-leftbar w3-border">
+                        <h3>{{ item.product.name }} <small class="w3-right">Sztuk: {{ item.numberOfProducts }}</small></h3>
+                    </div>
+                {% endif %}
+                 {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
