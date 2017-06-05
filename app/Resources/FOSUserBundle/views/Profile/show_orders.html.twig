@@ -61,7 +61,7 @@
                     {% else %}
                         <div class="w3-tag w3-padding w3-red w3-center w3-margin-top">Nie zapłacono <i>({{ order.totalPrice }} zł)</i></div>
                         <br/><br/>
-                        <a href="#">Przejdź do płatności</a>
+                        <a href="{{ path('payment', {'orderId' : order.id}) }}">Przejdź do płatności</a>
                     {% endif %}
                     </div>
                 <div class="w3-col m6 w3-theme-light w3-padding-large w3-center" style="min-height:100px">

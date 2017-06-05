@@ -16,7 +16,7 @@
         Na <a href="{{ path('fos_user_profile_show') }}" class="w3-text-theme">swoim profilu</a> możesz śledzić status swojego zamówienia.
         <hr/>
         Informacje dotyczące płatności<br/>
-        <button class="w3-button w3-theme-l2">Przejdź do płatności</button>
+        <a href="{{ path('payment', { 'orderId' : userOrder.id }) }}"><button class="w3-button w3-theme-l2">Przejdź do płatności</button></a>
     </div>
 
 {% endblock %}

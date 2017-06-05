@@ -136,4 +136,28 @@ class CartController extends Controller
             "userOrder" => $userOrder
         ]);
     }
+
+    /**
+     * @Route("/payment/{orderId}", name="payment")
+     */
+    public function paymentAction($orderId){
+        $em = $this->getDoctrine()->getManager();
+        $userOrder = $em->getRepository("AppBundle\Entity\UserOrder") -> find($orderId);
+        return $this->render('cart/payment.html.twig', [
+            "userOrder" => $userOrder
+        ]);
+    }
+
+    /**
+     * @Route("/payment-received/{orderId}", name="payment_received")
+     */
+    public function paymentReceivedAction($orderId){
+        $em = $this->getDoctrine()->getManager();
+        $userOrder = $em -> getRepository("AppBundle\Entity\UserOrder") -> find($orderId);
+        $userOrder->setPaymentReceived(true);
+        $em->persist($userOrder);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('profile_orders'));
+    }
 }
